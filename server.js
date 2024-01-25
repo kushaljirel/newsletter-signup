@@ -35,7 +35,7 @@ app.post("/", (req, res) => {
   const url = "https://us22.api.mailchimp.com/3.0/lists/"+process.env.LISTID;
   const auth = {
     user: "bluebee",
-    pass: process.env.APIKEY,
+    pass:  `${process.env.APIKEY}`,
   };
   const options = {
     method: "POST",
@@ -62,5 +62,5 @@ app.post("/failure", (req, res) => {
 });
 
 app.listen(process.env.PORT || port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`Server running on port ${process.env.PORT || port}`);
 });

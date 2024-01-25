@@ -4,11 +4,7 @@ const bodyParser = require("body-parser");
 const request = require("request");
 
 const app = express();
-const PORT = 3000;
-// apikey
-// 27ae6076e76e42480130b1a4010bea2c-us22
-// listId
-// 86ecf80b5f
+const port = 3000;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,10 +32,10 @@ app.post("/", (req, res) => {
   };
 
   const jsonData = JSON.stringify(data);
-  const url = "https://us22.api.mailchimp.com/3.0/lists/86ecf80b5f";
+  const url = "https://us22.api.mailchimp.com/3.0/lists/"+process.env.LISTID;
   const auth = {
     user: "bluebee",
-    pass: "27ae6076e76e42480130b1a4010bea2c-us22",
+    pass: process.env.APIKEY,
   };
   const options = {
     method: "POST",
@@ -65,6 +61,6 @@ app.post("/failure", (req, res) => {
   res.redirect("/");
 });
 
-app.listen(process.env.PORT || PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(process.env.PORT || port, () => {
+  console.log(`Server running on port ${port}`);
 });
